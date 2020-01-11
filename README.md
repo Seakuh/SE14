@@ -1,7 +1,7 @@
 # SE14
 
 
-##Aufgabenstellung Besuchermuster
+## Aufgabenstellung Besuchermuster
 
 Eine Datenstruktur definieren (Verzeichnisstruktur) mit Visitor-Interface und zwei Visitor-Klassen
 

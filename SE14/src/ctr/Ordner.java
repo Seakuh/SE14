@@ -5,6 +5,15 @@ import java.util.ArrayList;
 public class Ordner implements VerzeichnisEintrag {
 
 	public String name = "";
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	ArrayList<VerzeichnisEintrag> UnterEintaege = new ArrayList<VerzeichnisEintrag>();
 
 	public Ordner(String n) {

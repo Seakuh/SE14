@@ -7,16 +7,16 @@ public class Ausgabe implements VerzeichnisVisitor {
 
 	@Override
 	public Object visit(Datei e) {
-		return e.name;
+		return "----" + e.name;
 	}
 
 	@Override
 	public Object visit(Ordner e) {
-		System.out.println(tab + "[-]" + e.name);
+		System.out.println("[-]" + e.name);
 		for (VerzeichnisEintrag d : e.UnterEintaege) {			
-			System.out.println(tab + d.visit(this));
+			System.out.println(d.visit(this));
 		}
-		return tab;
+		return "";
 	}
 
 }

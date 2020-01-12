@@ -4,16 +4,12 @@ import java.util.ArrayList;
 
 public class Info implements VerzeichnisVisitor {
 
-	static int tiefe = 0;
+	static int tiefe = 1;
 	static int blattKnoten = 0;
 	static int blatt = 0;
 	static double durchschnittlicherVerzweigungsGrad = 0;
 	static int verzweigungen = 0;
-//	static Info instance;
-//	
-//	public Info() {
-//		instance = new Info();
-//	}
+	static int aktTiefste = 1;
 
 	@Override
 	public Object visit(Datei e) {
@@ -22,8 +18,14 @@ public class Info implements VerzeichnisVisitor {
 	}
 
 	public boolean hatBefuellteUnterOrdner(Ordner o) {
+
 		for (VerzeichnisEintrag u : o.getUnterEintaege()) {
 			if (u instanceof Ordner && (!((Ordner) u).UnterEintaege.isEmpty())) {
+				aktTiefste++;
+
+				if (aktTiefste > tiefe) {
+					tiefe = aktTiefste;
+				}
 				return true;
 			}
 		}
@@ -31,14 +33,17 @@ public class Info implements VerzeichnisVisitor {
 
 	}
 
-	@Override
 	public Object visit(Ordner e) {
 		if (e.UnterEintaege.isEmpty()) {
 			blatt++;
+			//System.out.println("Kein Knoten: " + e.name);
 			return "Keine Unterordner";
-		} else if(this.hatBefuellteUnterOrdner(e)){
+		} else {
 			blattKnoten++;
 		}
+		
+		this.hatBefuellteUnterOrdner(e);
+
 		for (VerzeichnisEintrag v : e.UnterEintaege) {
 			if (v instanceof Datei) {
 				this.visit((Datei) v);
@@ -52,9 +57,10 @@ public class Info implements VerzeichnisVisitor {
 	}
 
 	public void ergebnis() {
+		
 
 		durchschnittlicherVerzweigungsGrad = blatt / tiefe;
-
+		System.out.println("Blätter: " + blatt);
 		System.out.println("Tiefe: " + tiefe);
 		System.out.println("Blattknoten: " + blattKnoten);
 		System.out.println("durchschnittliche Verzweigungen: " + durchschnittlicherVerzweigungsGrad);

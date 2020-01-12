@@ -17,25 +17,33 @@ public class Info implements VerzeichnisVisitor {
 
 	@Override
 	public Object visit(Datei e) {
+		blatt++;
 		return e;
+	}
+
+	public boolean hatBefuellteUnterOrdner(Ordner o) {
+		for (VerzeichnisEintrag u : o.getUnterEintaege()) {
+			if (u instanceof Ordner && (!((Ordner) u).UnterEintaege.isEmpty())) {
+				return true;
+			}
+		}
+		return false;
+
 	}
 
 	@Override
 	public Object visit(Ordner e) {
 		if (e.UnterEintaege.isEmpty()) {
 			blatt++;
-			System.out.println("Keine Unterordner");
 			return "Keine Unterordner";
-		} else {
+		} else if(this.hatBefuellteUnterOrdner(e)){
 			blattKnoten++;
-			tiefe++;
-
 		}
 		for (VerzeichnisEintrag v : e.UnterEintaege) {
 			if (v instanceof Datei) {
-				blatt++;
+				this.visit((Datei) v);
 			} else if (v instanceof Ordner) {
-				this.visit((Ordner)v);
+				this.visit((Ordner) v);
 			}
 		}
 
@@ -45,15 +53,12 @@ public class Info implements VerzeichnisVisitor {
 
 	public void ergebnis() {
 
-		durchschnittlicherVerzweigungsGrad = blattKnoten / tiefe;
+		durchschnittlicherVerzweigungsGrad = blatt / tiefe;
 
 		System.out.println("Tiefe: " + tiefe);
 		System.out.println("Blattknoten: " + blattKnoten);
 		System.out.println("durchschnittliche Verzweigungen: " + durchschnittlicherVerzweigungsGrad);
 	}
-	
-	
-	
 
 //	if(e.UnterEintaege.isEmpty()) {
 //	blatt++;

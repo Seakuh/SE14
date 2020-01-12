@@ -5,7 +5,17 @@ import java.util.ArrayList;
 public class Ordner implements VerzeichnisEintrag {
 
 	public String name = "";
+	ArrayList<VerzeichnisEintrag> UnterEintaege = new ArrayList<VerzeichnisEintrag>();
+
 	
+	public ArrayList<VerzeichnisEintrag> getUnterEintaege() {
+		return UnterEintaege;
+	}
+
+	public void setUnterEintaege(ArrayList<VerzeichnisEintrag> unterEintaege) {
+		UnterEintaege = unterEintaege;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -14,7 +24,6 @@ public class Ordner implements VerzeichnisEintrag {
 		this.name = name;
 	}
 
-	ArrayList<VerzeichnisEintrag> UnterEintaege = new ArrayList<VerzeichnisEintrag>();
 
 	public Ordner(String n) {
 		name = n;

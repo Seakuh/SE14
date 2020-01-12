@@ -65,6 +65,13 @@ public class TestDriver {
 		d.add(dokumente);
 		d.add(videos);
 		d.add(schreibtisch);
+		
+		Ordner AndereOrte = new Ordner("AndereOrte");
+		Datei Drive1 = new Datei("Drive1", "media");
+		
+		AndereOrte.add(Drive1);
+		
+		d.add(AndereOrte);
 
 		Ausgabe ausgabe = new Ausgabe();
 		Info info = new Info();

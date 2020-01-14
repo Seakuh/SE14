@@ -11,6 +11,54 @@ public class Info implements VerzeichnisVisitor {
 	static int verzweigungen = 0;
 	static int aktTiefste = 1;
 
+	public static int getTiefe() {
+		return tiefe;
+	}
+
+	public static void setTiefe(int tiefe) {
+		Info.tiefe = tiefe;
+	}
+
+	public static int getBlattKnoten() {
+		return blattKnoten;
+	}
+
+	public static void setBlattKnoten(int blattKnoten) {
+		Info.blattKnoten = blattKnoten;
+	}
+
+	public static int getBlatt() {
+		return blatt;
+	}
+
+	public static void setBlatt(int blatt) {
+		Info.blatt = blatt;
+	}
+
+	public static double getDurchschnittlicherVerzweigungsGrad() {
+		return durchschnittlicherVerzweigungsGrad;
+	}
+
+	public static void setDurchschnittlicherVerzweigungsGrad(double durchschnittlicherVerzweigungsGrad) {
+		Info.durchschnittlicherVerzweigungsGrad = durchschnittlicherVerzweigungsGrad;
+	}
+
+	public static int getVerzweigungen() {
+		return verzweigungen;
+	}
+
+	public static void setVerzweigungen(int verzweigungen) {
+		Info.verzweigungen = verzweigungen;
+	}
+
+	public static int getAktTiefste() {
+		return aktTiefste;
+	}
+
+	public static void setAktTiefste(int aktTiefste) {
+		Info.aktTiefste = aktTiefste;
+	}
+
 	@Override
 	public Object visit(Datei e) {
 		blatt++;
@@ -36,13 +84,15 @@ public class Info implements VerzeichnisVisitor {
 	public Object visit(Ordner e) {
 		if (e.UnterEintaege.isEmpty()) {
 			blatt++;
-			//System.out.println("Kein Knoten: " + e.name);
+			// System.out.println("Kein Knoten: " + e.name);
 			return "Keine Unterordner";
 		} else {
 			blattKnoten++;
 		}
-		
-		this.hatBefuellteUnterOrdner(e);
+
+		if(!(this.hatBefuellteUnterOrdner(e))) {
+			blatt++;
+		}
 
 		for (VerzeichnisEintrag v : e.UnterEintaege) {
 			if (v instanceof Datei) {
@@ -57,7 +107,6 @@ public class Info implements VerzeichnisVisitor {
 	}
 
 	public void ergebnis() {
-		
 
 		durchschnittlicherVerzweigungsGrad = blatt / tiefe;
 		System.out.println("Blätter: " + blatt);

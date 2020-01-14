@@ -72,9 +72,20 @@ public class TestDriver {
 		AndereOrte.add(Drive1);
 		
 		d.add(AndereOrte);
+		
+		Ordner BilderAuto = new Ordner("AutoBilder");
+		Datei BildOAIV = new Datei("OAIV","jpg");
+		
+		BilderAuto.add(BildOAIV);
+		
+		jahrDatum.add(BilderAuto);
 
 		Ausgabe ausgabe = new Ausgabe();
 		Info info = new Info();
+		
+
+	
+		
 
 		System.out.println(ausgabe.visit(d));
 

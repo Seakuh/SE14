@@ -3,19 +3,23 @@ package ctr;
 public class Ausgabe implements VerzeichnisVisitor {
 	
 	String ausgabe = "Ausgabe";
-	public static String tab = "\t";
+	public static String space = "";
 
 	@Override
 	public Object visit(Datei e) {
-		return "----" + e.name;
+		System.out.println(space + " |--" + e.name);
+		return "";
 	}
 
 	@Override
 	public Object visit(Ordner e) {
-		System.out.println("[-]" + e.name);
+		System.out.println(space + "[-]" + e.name);
+		space = space + "    ";
 		for (VerzeichnisEintrag d : e.UnterEintaege) {			
-			System.out.println(d.visit(this));
+			d.visit(this);
 		}
+		
+		space = "    ";
 		return "";
 	}
 

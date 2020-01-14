@@ -18,6 +18,8 @@ public class TestSE14 {
 		
 		testOrdner.add(testDatei);
 		
+		
+		
 		Ordner testUnterOrdner = new Ordner("TestUnterOrdner");
 		Datei testUnterDatei = new Datei("TestUnterDatei", ".test");
 		
@@ -31,11 +33,13 @@ public class TestSE14 {
 		Info infoTest = new Info();
 		
 		infoTest.visit(testOrdner);
-		System.out.println(infoTest.getTiefe());
-		System.out.println(infoTest.getBlatt());
-	
+
+		infoTest.ergebnis();
+		
 		assertEquals(2, infoTest.getTiefe());
-		assertEquals(4,infoTest.getBlatt());
+		assertEquals(3,infoTest.getBlatt());
+		assertEquals((double)1.5, infoTest.getDurchschnittlicherVerzweigungsGrad(),0);
+
 		
 	}
 }
